@@ -1,0 +1,35 @@
+.layout {
+  min-height: 100vh;
+}
+
+.main {
+  min-height: 100vh;
+  padding-bottom: var(--space-8);
+}
+
+.content {
+  width: 100%;
+  max-width: var(--max-content-width);
+  margin: 0 auto;
+  padding: var(--space-6);
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+  .main {
+    margin-left: 0 !important;
+    padding-bottom: calc(var(--mobile-nav-height) + var(--space-6));
+  }
+
+  .content {
+    padding: var(--space-4);
+  }
+}
+
+/* Large screens */
+@media (min-width: 1920px) {
+  .content {
+    padding: var(--space-8);
+  }
+}
+

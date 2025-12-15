@@ -1,0 +1,139 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  password  String
+  name      String
+  avatarUrl String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  memberships LibraryMember[]
+  borrows     Borrow[]
+}
+
+model Library {
+  id          String   @id @default(cuid())
+  name        String
+  description String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  members   LibraryMember[]
+  games     Game[]
+  playlists Playlist[]
+}
+
+model LibraryMember {
+  id        String   @id @default(cuid())
+  userId    String
+  libraryId String
+  role      Role     @default(MEMBER)
+  joinedAt  DateTime @default(now())
+
+  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  library Library @relation(fields: [libraryId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, libraryId])
+}
+
+enum Role {
+  ADMIN
+  MEMBER
+  GUEST
+}
+
+model Game {
+  id           String     @id @default(cuid())
+  libraryId    String
+  bggId        Int?
+  title        String
+  coverUrl     String?
+  minPlayers   Int        @default(1)
+  maxPlayers   Int        @default(4)
+  playtimeMin  Int?
+  playtimeMax  Int?
+  description  String?
+  categories   String[]   @default([])
+  mechanics    String[]   @default([])
+  location     String?
+  status       GameStatus @default(AVAILABLE)
+  rating       Float?
+  timesPlayed  Int        @default(0)
+  lastPlayedAt DateTime?
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+
+  library    Library          @relation(fields: [libraryId], references: [id], onDelete: Cascade)
+  expansions Expansion[]
+  borrows    Borrow[]
+  playlists  PlaylistGame[]
+
+  @@index([libraryId])
+  @@index([status])
+}
+
+enum GameStatus {
+  AVAILABLE
+  BORROWED
+  STORAGE
+}
+
+model Expansion {
+  id     String  @id @default(cuid())
+  gameId String
+  name   String
+  owned  Boolean @default(true)
+
+  game Game @relation(fields: [gameId], references: [id], onDelete: Cascade)
+}
+
+model Borrow {
+  id         String    @id @default(cuid())
+  gameId     String
+  userId     String
+  borrowedAt DateTime  @default(now())
+  dueAt      DateTime?
+  returnedAt DateTime?
+
+  game Game @relation(fields: [gameId], references: [id], onDelete: Cascade)
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([gameId])
+  @@index([userId])
+}
+
+model Playlist {
+  id            String  @id @default(cuid())
+  libraryId     String
+  name          String
+  icon          String?
+  isSmartList   Boolean @default(false)
+  smartCriteria Json?
+
+  library Library        @relation(fields: [libraryId], references: [id], onDelete: Cascade)
+  games   PlaylistGame[]
+
+  @@index([libraryId])
+}
+
+model PlaylistGame {
+  id         String @id @default(cuid())
+  playlistId String
+  gameId     String
+  order      Int    @default(0)
+
+  playlist Playlist @relation(fields: [playlistId], references: [id], onDelete: Cascade)
+  game     Game     @relation(fields: [gameId], references: [id], onDelete: Cascade)
+
+  @@unique([playlistId, gameId])
+}
+

@@ -1,0 +1,2 @@
+export { Coverflow } from './Coverflow';
+

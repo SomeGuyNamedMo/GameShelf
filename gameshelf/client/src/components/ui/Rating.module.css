@@ -1,0 +1,72 @@
+.rating {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+.star {
+  background: none;
+  border: none;
+  padding: 0;
+  color: var(--color-text-tertiary);
+  transition: color var(--transition-fast);
+  cursor: default;
+}
+
+.interactive .star {
+  cursor: pointer;
+}
+
+.star.filled {
+  color: var(--color-accent);
+}
+
+.star.halfFilled {
+  color: var(--color-accent);
+  opacity: 0.5;
+}
+
+/* Sizes */
+.sm .icon {
+  width: 14px;
+  height: 14px;
+}
+
+.md .icon {
+  width: 18px;
+  height: 18px;
+}
+
+.lg .icon {
+  width: 24px;
+  height: 24px;
+}
+
+/* Value display */
+.value {
+  margin-left: var(--space-2);
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
+  color: var(--color-text-secondary);
+}
+
+.sm .value {
+  font-size: var(--text-xs);
+}
+
+.lg .value {
+  font-size: var(--text-base);
+}
+
+/* Hover effect on interactive */
+.interactive:hover .star:not(.filled) {
+  color: var(--color-text-muted);
+}
+
+/* Focus styles */
+.interactive .star:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+

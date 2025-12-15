@@ -1,0 +1,329 @@
+/* Grid Card */
+.card {
+  display: flex;
+  flex-direction: column;
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  cursor: pointer;
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.card:hover {
+  border-color: var(--color-border-hover);
+  box-shadow: var(--shadow-lg);
+}
+
+.cover {
+  position: relative;
+  aspect-ratio: 1;
+  background: var(--color-bg-tertiary);
+  overflow: hidden;
+}
+
+.cover img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--transition-slow);
+}
+
+.card:hover .cover img {
+  transform: scale(1.05);
+}
+
+.placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, var(--color-bg-tertiary), var(--color-bg-elevated));
+}
+
+.placeholder span {
+  font-family: var(--font-heading);
+  font-size: var(--text-4xl);
+  font-weight: var(--font-bold);
+  color: var(--color-text-tertiary);
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.6), transparent);
+  opacity: 0;
+  transition: opacity var(--transition-fast);
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  padding: var(--space-3);
+}
+
+.card:hover .overlay {
+  opacity: 1;
+}
+
+.moreButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  border: none;
+  border-radius: var(--radius-md);
+  color: var(--color-text-primary);
+  cursor: pointer;
+  transition: background var(--transition-fast);
+}
+
+.moreButton:hover {
+  background: var(--color-accent);
+}
+
+.status {
+  position: absolute;
+  top: var(--space-2);
+  left: var(--space-2);
+}
+
+.info {
+  padding: var(--space-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.title {
+  font-family: var(--font-heading);
+  font-size: var(--text-base);
+  font-weight: var(--font-semibold);
+  color: var(--color-text-primary);
+  line-height: var(--leading-tight);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.meta {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.metaItem {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  font-size: var(--text-sm);
+  color: var(--color-text-tertiary);
+}
+
+.metaItem svg {
+  color: var(--color-text-muted);
+}
+
+.rating {
+  margin-top: var(--space-1);
+}
+
+/* List Item */
+.listItem {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  padding: var(--space-3) var(--space-4);
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.listItem:hover {
+  border-color: var(--color-border-hover);
+}
+
+.listCover {
+  width: 56px;
+  height: 56px;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  flex-shrink: 0;
+  background: var(--color-bg-tertiary);
+}
+
+.listCover img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.listPlaceholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  font-family: var(--font-heading);
+  font-weight: var(--font-bold);
+  color: var(--color-text-tertiary);
+}
+
+.listInfo {
+  flex: 1;
+  min-width: 0;
+}
+
+.listTitle {
+  font-family: var(--font-heading);
+  font-size: var(--text-base);
+  font-weight: var(--font-semibold);
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-1);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.listMeta {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--text-sm);
+  color: var(--color-text-tertiary);
+}
+
+.listRating {
+  flex-shrink: 0;
+}
+
+.noRating {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+}
+
+.listStatus {
+  flex-shrink: 0;
+}
+
+.listMore {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  background: none;
+  border: none;
+  border-radius: var(--radius-md);
+  color: var(--color-text-tertiary);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.listMore:hover {
+  background: var(--color-surface);
+  color: var(--color-text-primary);
+}
+
+/* Table Row */
+.tableRow {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+  align-items: center;
+  gap: var(--space-4);
+  padding: var(--space-3) var(--space-4);
+  border-bottom: 1px solid var(--color-border);
+  cursor: pointer;
+  transition: background var(--transition-fast);
+}
+
+.tableRow:first-child {
+  border-top: 1px solid var(--color-border);
+}
+
+.tableCell {
+  display: flex;
+  align-items: center;
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+}
+
+.tableCell:first-child {
+  gap: var(--space-3);
+}
+
+.tableCover {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  flex-shrink: 0;
+  background: var(--color-bg-tertiary);
+}
+
+.tableCover img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.tablePlaceholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  font-size: var(--text-sm);
+  font-weight: var(--font-bold);
+  color: var(--color-text-tertiary);
+}
+
+.tableTitle {
+  font-weight: var(--font-medium);
+  color: var(--color-text-primary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.tableRating {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  color: var(--color-accent);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .listItem {
+    flex-wrap: wrap;
+  }
+
+  .listInfo {
+    order: 1;
+    flex-basis: calc(100% - 72px);
+  }
+
+  .listRating,
+  .listStatus {
+    order: 2;
+  }
+
+  .listMore {
+    order: 0;
+  }
+
+  .tableRow {
+    grid-template-columns: 2fr 1fr 1fr;
+  }
+
+  .tableRow .tableCell:nth-child(4),
+  .tableRow .tableCell:nth-child(5) {
+    display: none;
+  }
+}
+
